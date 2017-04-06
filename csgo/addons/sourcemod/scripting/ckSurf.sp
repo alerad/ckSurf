@@ -400,6 +400,7 @@ ConVar g_hSlopeFixEnable;
 
 /*----------  Forwards  ----------*/
 Handle g_MapFinishForward;
+Handle g_MapImprovedForward;
 Handle g_BonusFinishForward;
 Handle g_PracticeFinishForward;
 Handle g_StageFinishedForward;
@@ -2098,6 +2099,7 @@ public void OnPluginStart()
 	}
 
 	// Forwards
+	g_MapImprovedForward = CreateGlobalForward("ckSurf_OnMapImproved", ET_Event, Param_Cell);
 	g_MapFinishForward = CreateGlobalForward("ckSurf_OnMapFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell);
 	g_BonusFinishForward = CreateGlobalForward("ckSurf_OnBonusFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell, Param_Cell);
 	g_PracticeFinishForward = CreateGlobalForward("ckSurf_OnPracticeFinished", ET_Event, Param_Cell, Param_Float, Param_String);

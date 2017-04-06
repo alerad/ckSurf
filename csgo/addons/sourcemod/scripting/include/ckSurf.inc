@@ -181,6 +181,17 @@ forward Action ckSurf_OnBonusFinished(int client, float fRunTime, char sRunTime[
   */
 forward void ckSurf_OnStageFinished(int client, float fRuntime, char[] sRuntime, int stage, int rank);
 
+ /**
+  * Called when a player improoves a time on a map
+  *
+  * @param client 	Player index.
+  * @param fRuntime Run time in seconds
+  * @param sRunTime Run time formated as a string
+  * @param stage 	Stage
+  * @param rank 	Rank of the run
+  */
+forward void ckSurf_OnMapImproved(int client);
+
 
 
 /**

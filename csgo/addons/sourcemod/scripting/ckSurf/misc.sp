@@ -1832,6 +1832,10 @@ stock void MapFinishedMsgs(int client, int rankThisRun = 0)
 						if (g_bMapPBRecord[client]) // Own record
 						{
 							PlayUnstoppableSound(client);
+							// Forward
+							Call_StartForward(g_MapImprovedForward);
+							Call_PushCell(client);
+							Call_Finish();
 							PrintToChat(i, "%t", "MapFinished3", MOSSGREEN, WHITE, LIMEGREEN, szName, GRAY, DARKBLUE, GRAY, LIMEGREEN, g_szFinalTime[client], GRAY, GREEN, g_szTimeDifference[client], GRAY, WHITE, LIMEGREEN, g_MapRank[client], WHITE, count, g_szSRTimeDifference[client], WHITE);
 							PrintToConsole(i, "%s finished the map with a time of (%s). Improving their best time by (%s).  [Rank #%i/%i | SR: %s]", szName, g_szFinalTime[client], g_szTimeDifference[client], g_MapRank[client], count, g_szSRTimeDifference[client]);
 						}
