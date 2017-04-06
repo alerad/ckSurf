@@ -355,8 +355,12 @@ public Action CheckChallenge(Handle timer, any client)
 			RecalcPlayerRank(64, szSteamId);
 
 			//chat msgs
-			if (IsValidClient(client))
+			if (IsValidClient(client)) {
+				Call_StartForward(g_challengeWonForward);
+				Call_PushCell(client);
+				Call_Finish();
 				PrintToChat(client, "%t", "ChallengeWon", RED, WHITE, YELLOW, WHITE);
+			}
 
 			return Plugin_Stop;
 		}

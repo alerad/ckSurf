@@ -151,7 +151,7 @@ native void ckSurf_AddPoints(int client, int points);
  * @param client     Player index.
  * @return           Plugin_Handled; to stop the player from searching.
  */
-forward Action ckSurf_OnMapFinished(int client, float fRunTime, char RunTime[54], int rank, int total, bool improved);
+forward Action ckSurf_OnMapFinished(int client, float fRunTime, char RunTime[54], int rank, int total, bool improved, char mapName[128], int tier);
 
 /**
  * Called when a player finishes a bonus
@@ -185,12 +185,43 @@ forward void ckSurf_OnStageFinished(int client, float fRuntime, char[] sRuntime,
   * Called when a player improoves a time on a map
   *
   * @param client 	Player index.
-  * @param fRuntime Run time in seconds
-  * @param sRunTime Run time formated as a string
-  * @param stage 	Stage
-  * @param rank 	Rank of the run
   */
 forward void ckSurf_OnMapImproved(int client);
+
+ /**
+  * Called when a player uses the map stats command
+  *
+  * @param client 	Player index.
+  */
+forward void ckSurf_OnMapStatsCommand(int client);
+
+ /**
+  * Called when a player uses the !restart command
+  *
+  * @param client 	Player index.
+  */
+forward void ckSurf_OnRestartCommand(int client);
+
+ /**
+  * Called when a player uses the !stuck command
+  *
+  * @param client 	Player index.
+  */
+forward void ckSurf_OnStuckCommand(int client);
+
+ /**
+  * Called when a player uses the !goback command
+  *
+  * @param client 	Player index.
+  */
+forward void ckSurf_OnGoBackCommand(int client);
+
+ /**
+  * Called when a player wins a challenge
+  *
+  * @param client 	Player index.
+  */
+forward void ckSurf_ChallengeWon(int client);
 
 
 

@@ -405,6 +405,11 @@ Handle g_BonusFinishForward;
 Handle g_PracticeFinishForward;
 Handle g_StageFinishedForward;
 Handle g_OnTimerStartedForward;
+Handle g_goBackForward;
+Handle g_restartForward;
+Handle g_mapStatsForward;
+Handle g_stuckForward;
+Handle g_challengeWonForward;
 
 /*----------  CVars  ----------*/
 // Zones
@@ -1961,6 +1966,7 @@ public void OnPluginStart()
 	// Teleport to the start of the stage
 	RegConsoleCmd("sm_stuck", Command_Teleport, "[Surf Timer] Teleports player back to the start of the stage");
 	RegConsoleCmd("sm_back", Command_Teleport, "[Surf Timer] Teleports player back to the start of the stage");
+	RegConsoleCmd("sm_gb", Command_Teleport, "[Surf Timer] Teleports player back to the start of the stage");
 	RegConsoleCmd("sm_goback", Command_GoBack, "[Surf Timer] Teleports player to one stage before the current one");
 	RegConsoleCmd("sm_rs", Command_Teleport, "[Surf Timer] Teleports player back to the start of the stage");
 	RegConsoleCmd("sm_play", Command_Teleport, "[Surf Timer] Teleports player back to the start");
@@ -2099,6 +2105,11 @@ public void OnPluginStart()
 	}
 
 	// Forwards
+	g_mapStatsForward = CreateGlobalForward("ckSurf_OnMapStatsCommand", ET_Event, Param_Cell);
+	g_restartForward = CreateGlobalForward("ckSurf_OnRestartCommand", ET_Event, Param_Cell);
+	g_stuckForward = CreateGlobalForward("ckSurf_OnStuckCommand", ET_Event, Param_Cell);
+	g_goBackForward = CreateGlobalForward("ckSurf_OnGoBackCommand", ET_Event, Param_Cell);
+	g_challengeWonForward = CreateGlobalForward("ckSurf_ChallengeWon", ET_Event, Param_Cell);
 	g_MapImprovedForward = CreateGlobalForward("ckSurf_OnMapImproved", ET_Event, Param_Cell);
 	g_MapFinishForward = CreateGlobalForward("ckSurf_OnMapFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell);
 	g_BonusFinishForward = CreateGlobalForward("ckSurf_OnBonusFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell, Param_Cell);

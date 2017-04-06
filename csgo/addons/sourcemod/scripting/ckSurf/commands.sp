@@ -471,11 +471,18 @@ public Action Command_Teleport(int client, int args)
 
 	if (g_Stage[g_iClientInZone[client][2]][client] == 1)
 	{
+		Call_StartForward(g_stuckForward);
+		Call_PushCell(client);
+		Call_Finish();
 		teleportClient(client, g_iClientInZone[client][2], 1, false);
 		return Plugin_Handled;
 	}
 
+	Call_StartForward(g_restartForward);
+	Call_PushCell(client);
+	Call_Finish();
 	teleportClient(client, g_iClientInZone[client][2], g_Stage[g_iClientInZone[client][2]][client], false);
+
 	return Plugin_Handled;
 }
 
@@ -494,6 +501,9 @@ public Action Command_GoBack(int client, int args)
 	}
 
 	teleportClient(client, g_iClientInZone[client][2], g_Stage[g_iClientInZone[client][2]][client]-1, true);
+	Call_StartForward(g_goBackForward);
+	Call_PushCell(client);
+	Call_Finish();
 	return Plugin_Handled;
 }
 
@@ -3216,6 +3226,9 @@ public Action Client_MapStats(int client, int args)
 		mapInfoMenu.Display(client, MENU_TIME_FOREVER);
 		CloseHandle(stringArray);
 	}
+	Call_StartForward(g_mapStatsForward);
+	Call_PushCell(client);
+	Call_Finish();
 	return Plugin_Handled;
 }
 
@@ -3228,8 +3241,6 @@ public int MapStatsHandler(Menu menu, MenuAction action, int param1, int param2)
 	menu.GetItem(param2, szItem, sizeof(szItem));
 	int id = StringToInt(szItem);
 
-
-	PrintToChat(param1, "item: %d id: %d", szItem, id);
 	// Map records
 	if (id == 0)
 		db_selectMapTopSurfers(param1, g_szMapName);
