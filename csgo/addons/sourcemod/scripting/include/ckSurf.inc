@@ -71,6 +71,30 @@ native bool ckSurf_ClientIsVIP(int client);
 native void ckSurf_GetServerRank(int client);
 
 /**
+ * Gets the amount of completed maps by a client
+ *
+ * @param client     Client's id
+ * @return           Server rank as an int
+ */
+native int ckSurf_GetCompletedMaps(int client);
+
+/**
+ * Gets the amount of completed stages by a client
+ *
+ * @param client     Client's id
+ * @return           Server rank as an int
+ */
+native int ckSurf_GetCompletedStages(int client);
+
+/**
+ * Gets the amount of completed bonuses by a client
+ *
+ * @param client     Client's id
+ * @return           Server rank as an int
+ */
+native int ckSurf_GetCompletedBonuses(int client);
+
+/**
  * Safely teleports the client. Does not trigger end touches
  * and sets client location correctly.
  *

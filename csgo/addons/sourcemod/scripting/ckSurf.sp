@@ -354,6 +354,10 @@ int g_mapZoneCountinGroup[MAXZONEGROUPS];						// Map zone count in zonegroups
 int g_mapZoneGroupCount;										// Zone group cound
 float g_fZoneCorners[MAXZONES][8][3];							// Additional zone corners, can't store multi dimensional arrays in enums..
 
+//Player information
+int g_completedMaps[MAXPLAYERS + 1];
+int g_completedBonuses[MAXPLAYERS +1];
+int g_completedStages[MAXPLAYERS + 1];
 
 // Editing zones
 bool g_bEditZoneType[MAXPLAYERS + 1];							// If editing zone type
@@ -1111,6 +1115,8 @@ public void OnClientPutInServer(int client)
 	if (!IsValidClient(client))
 		return;
 
+	GetClientAuthId(client, AuthId_Steam2, g_szSteamID[client], MAX_NAME_LENGTH, true);
+
 	//defaults
 	SetClientDefaults(client);
 
@@ -1130,8 +1136,10 @@ public void OnClientPutInServer(int client)
 		CS_SetMVPCount(client, 1);
 		return;
 	}
-	else
+	else {
+		setPlayerCounts(client);
 		g_MVPStars[client] = 0;
+	}
 
 	//client country
 	GetCountry(client);
@@ -1140,7 +1148,6 @@ public void OnClientPutInServer(int client)
 		DHookEntity(g_hTeleport, false, client);
 
 	//get client steamID
-	GetClientAuthId(client, AuthId_Steam2, g_szSteamID[client], MAX_NAME_LENGTH, true);
 
 	// ' char fix
 	FixPlayerName(client);
@@ -1978,6 +1985,7 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_specbot", Command_Replay, "[Surf Timer] Shows the replay menu.");
 	RegConsoleCmd("sm_replay", Command_Replay, "[Surf Timer] Shows the replay menu.");
 
+	RegAdminCmd("sm_test", Admin_TestCommand, g_AdminMenuFlag, "[Surf Timer] Test command for development");
 	RegAdminCmd("sm_ckadmin", Admin_ckPanel, g_AdminMenuFlag, "[Surf Timer] Displays the Surf Timer menu panel");
 	RegAdminCmd("sm_refreshprofile", Admin_RefreshProfile, g_AdminMenuFlag, "[Surf Timer] Recalculates player profile for given steam id");
 	RegAdminCmd("sm_resetchallenges", Admin_DropChallenges, ADMFLAG_ROOT, "[Surf Timer] Resets all player challenges (drops table challenges) - requires z flag");
@@ -2212,6 +2220,20 @@ public int Native_GetPlayerPoints(Handle plugin, int numParams) {
 	return g_pr_points[GetNativeCell(1)];
 }
 
+
+public int Native_GetCompletedBonuses(Handle plugin, int numParams){
+	return g_completedBonuses[GetNativeCell(1)];
+}
+
+public int Native_GetCompletedStages(Handle plugin, int numParams){
+	return g_completedStages[GetNativeCell(1)];
+}
+
+public int Native_GetCompletedMaps(Handle plugin, int numParams) {
+	return g_completedMaps[GetNativeCell(1)];
+}
+
+
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
 	RegPluginLibrary("ckSurf");
@@ -2226,6 +2248,9 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("ckSurf_CountZones", Native_CountZones);
 	CreateNative("ckSurf_CountZoneGroups", Native_CountZoneGroups);
 	CreateNative("ckSurf_GetPlayerPoints", Native_GetPlayerPoints);
+	CreateNative("ckSurf_GetCompletedMaps", Native_GetCompletedMaps);
+	CreateNative("ckSurf_GetCompletedStages", Native_GetCompletedStages);
+	CreateNative("ckSurf_GetCompletedBonuses", Native_GetCompletedBonuses);
 	g_bLateLoaded = late;
 	return APLRes_Success;
 }

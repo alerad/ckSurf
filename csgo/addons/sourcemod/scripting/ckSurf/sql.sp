@@ -121,6 +121,9 @@ char sql_selectMapRecordHolders[] = "SELECT y.steamid, COUNT(*) AS rekorde FROM 
 char sql_selectMapRecordCount[] = "SELECT y.steamid, COUNT(*) AS rekorde FROM (SELECT s.steamid FROM ck_playertimes s INNER JOIN (SELECT mapname, MIN(runtimepro) AS runtimepro FROM ck_playertimes where runtimepro > -1.0  GROUP BY mapname) x ON s.mapname = x.mapname AND s.runtimepro = x.runtimepro) y where y.steamid = '%s' GROUP BY y.steamid ORDER BY rekorde DESC , y.steamid;";
 char sql_selectAllMapTimesinMap[] = "SELECT runtimepro from ck_playertimes WHERE mapname = '%s';";
 
+//COUNTS
+char sql_selectCompletitions[] = "SELECT COUNT(*) FROM ck_bonus WHERE steamid = '%s' UNION SELECT COUNT(*) FROM ck_stages WHERE steamid = '%s' UNION SELECT COUNT(*) FROM ck_playertimes WHERE steamid = '%s';";
+
 //TABLE PLAYERTEMP
 char sql_createPlayertmp[] = "CREATE TABLE IF NOT EXISTS ck_playertemp (steamid VARCHAR(32), mapname VARCHAR(32), cords1 FLOAT NOT NULL DEFAULT '-1.0', cords2 FLOAT NOT NULL DEFAULT '-1.0', cords3 FLOAT NOT NULL DEFAULT '-1.0', angle1 FLOAT NOT NULL DEFAULT '-1.0',angle2 FLOAT NOT NULL DEFAULT '-1.0',angle3 FLOAT NOT NULL DEFAULT '-1.0', EncTickrate INT(12) DEFAULT '-1.0', runtimeTmp FLOAT NOT NULL DEFAULT '-1.0', Stage INT, zonegroup INT NOT NULL DEFAULT 0, PRIMARY KEY(steamid,mapname));";
 char sql_insertPlayerTmp[] = "INSERT INTO ck_playertemp (cords1, cords2, cords3, angle1,angle2,angle3,runtimeTmp,steamid,mapname,EncTickrate,Stage,zonegroup) VALUES ('%f','%f','%f','%f','%f','%f','%f','%s', '%s', '%i', %i, %i);";
@@ -7098,4 +7101,30 @@ public void SQL_setPlayerName(Handle owner, Handle hndl, const char[] error, any
 	}
 
 	db_getChatTags(client);
+}
+
+
+public void setPlayerCounts(int client) {
+	g_szSteamID[client];
+
+	//Setting player map count
+	char query[512];
+	Format(query, sizeof(query), sql_selectCompletitions, g_szSteamID[client], g_szSteamID[client], g_szSteamID[client]);
+	PrintToServer("Query %s", query);
+	SQL_TQuery(g_hDb, setPlayerMapCount, query, client, DBPrio_Low);
+}
+
+public void setPlayerMapCount(Handle owner, Handle hndl, const char[] error, any client)
+{
+	if (hndl == null)
+	{
+		LogError("[Surf Timer] SQL Error (setting player map count): %s", error);
+		return;
+	}
+	SQL_FetchRow(hndl);
+	g_completedBonuses[client] = SQL_FetchInt(hndl, 0);
+	SQL_FetchRow(hndl);
+	g_completedStages[client] = SQL_FetchInt(hndl, 0);
+	SQL_FetchRow(hndl);
+	g_completedMaps[client] = SQL_FetchInt(hndl, 0);
 }

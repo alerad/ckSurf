@@ -1473,3 +1473,8 @@ public Action Admin_SetName(int client, int args)
 	PrintToChat(client, "[%cSurf Timer%c] Setting custom name to %s.", MOSSGREEN, WHITE, target_name);
 	return Plugin_Handled;
 }
+
+public Action Admin_TestCommand(int client, int args) {
+	PrintToChat(client, "Map count %i", g_completedMaps[client]);
+	return Plugin_Handled;
+}
