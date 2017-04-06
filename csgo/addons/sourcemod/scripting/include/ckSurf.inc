@@ -133,6 +133,14 @@ native int ckSurf_CountZoneGroups();
 native int ckSurf_GetPlayerPoints(int client);
 
 
+/**
+ * Adds points to a client
+ *
+ * @param client    		Client's id
+ * @return           Player points
+ */
+native void ckSurf_AddPoints(int client, int points);
+
 /*
 		FORWARDS
 						*/
@@ -199,6 +207,7 @@ public SharedPlugin __pl_ckSurf =
 public void __pl_ckSurf_SetNTVOptional()
 {
 	MarkNativeAsOptional("ckSurf_GetTimerStatus");
+	MarkNativeAsOptional("ckSurf_AddPoints");
 	MarkNativeAsOptional("ckSurf_StopTimer");
 	MarkNativeAsOptional("ckSurf_EmulateStartButtonPress");
 	MarkNativeAsOptional("ckSurf_EmulateStopButtonPress");

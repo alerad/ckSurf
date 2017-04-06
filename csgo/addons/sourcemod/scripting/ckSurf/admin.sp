@@ -1475,6 +1475,6 @@ public Action Admin_SetName(int client, int args)
 }
 
 public Action Admin_TestCommand(int client, int args) {
-	PrintToChat(client, "Map count %i", g_completedMaps[client]);
+	addExtraPoints(client, 10000);
 	return Plugin_Handled;
 }

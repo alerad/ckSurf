@@ -26,6 +26,7 @@ char sql_selectChallenges[] = "SELECT steamid, steamid2, bet, map FROM ck_challe
 char sql_selectChallengesCompare[] = "SELECT steamid, steamid2, bet FROM ck_challenges where (steamid = '%s' AND steamid2 ='%s') OR (steamid = '%s' AND steamid2 ='%s')";
 char sql_deleteChallenges[] = "DELETE from ck_challenges where steamid = '%s'";
 
+
 //TABLE ZONES
 char sql_createZones[] = "CREATE TABLE IF NOT EXISTS ck_zones (mapname VARCHAR(54) NOT NULL, zoneid INT(12) DEFAULT '-1', zonetype INT(12) DEFAULT '-1', zonetypeid INT(12) DEFAULT '-1', pointa_x FLOAT DEFAULT '-1.0', pointa_y FLOAT DEFAULT '-1.0', pointa_z FLOAT DEFAULT '-1.0', pointb_x FLOAT DEFAULT '-1.0', pointb_y FLOAT DEFAULT '-1.0', pointb_z FLOAT DEFAULT '-1.0', vis INT(12) DEFAULT '0', team INT(12) DEFAULT '0', zonegroup INT(12) DEFAULT 0, zonename VARCHAR(128), PRIMARY KEY(mapname, zoneid));";
 char sql_insertZones[] = "INSERT INTO ck_zones (mapname, zoneid, zonetype, zonetypeid, pointa_x, pointa_y, pointa_z, pointb_x, pointb_y, pointb_z, vis, team, zonegroup, zonename) VALUES ('%s', '%i', '%i', '%i', '%f', '%f', '%f', '%f', '%f', '%f', '%i', '%i', '%i','%s')";
@@ -101,6 +102,8 @@ char sql_selectRankedPlayersRank[] = "SELECT name FROM ck_playerrank WHERE point
 char sql_selectRankedPlayers[] = "SELECT steamid, name from ck_playerrank where points > 0 ORDER BY points DESC";
 char sql_CountRankedPlayers[] = "SELECT COUNT(steamid) FROM ck_playerrank";
 char sql_CountRankedPlayers2[] = "SELECT COUNT(steamid) FROM ck_playerrank where points > 0";
+char sql_addExtraPoints[] = "UPDATE ck_playerrank SET extra_points = extra_points + '%i' WHERE steamid='%s';";
+char sql_selectExtraPoints[] = "SELECT extra_points FROM ck_playerrank WHERE steamid = '%s';";
 
 //TABLE PLAYERTIMES
 char sql_createPlayertimes[] = "CREATE TABLE IF NOT EXISTS ck_playertimes (steamid VARCHAR(32), mapname VARCHAR(32), name VARCHAR(32), runtimepro FLOAT NOT NULL DEFAULT '-1.0', startspeed FLOAT NOT NULL DEFAULT '-1.0', PRIMARY KEY(steamid,mapname));";
@@ -1560,6 +1563,23 @@ public void sql_CountFinishedStagesCallback(Handle owner, Handle hndl, const cha
 			}
 		}
 	}
+
+	// Next up, calculate extra points:
+	char szQuery[256];
+	Format(szQuery, sizeof(szQuery), sql_selectExtraPoints, g_szSteamID[client]);
+	SQL_TQuery(g_hDb, db_AddExtraPointsToCalculation, szQuery, client, DBPrio_Low);
+}
+
+public void db_AddExtraPointsToCalculation(Handle owner, Handle hndl, const char[] error, any client) {
+	if (SQL_HasResultSet(hndl))
+	{
+		SQL_FetchRow(hndl);
+		int extraPoints = SQL_FetchInt(hndl, 0);
+		g_pr_points[client] += extraPoints;
+	}
+	// int extraPoints = SQL_FetchInt(hndl, 0);
+	// PrintToServer("Calculated extra points : %i", extraPoints);
+	// g_pr_points[client] += extraPoints;
 
 	// Done checking, update points
 	db_updatePoints(client);
@@ -7105,12 +7125,9 @@ public void SQL_setPlayerName(Handle owner, Handle hndl, const char[] error, any
 
 
 public void setPlayerCounts(int client) {
-	g_szSteamID[client];
-
 	//Setting player map count
 	char query[512];
 	Format(query, sizeof(query), sql_selectCompletitions, g_szSteamID[client], g_szSteamID[client], g_szSteamID[client]);
-	PrintToServer("Query %s", query);
 	SQL_TQuery(g_hDb, setPlayerMapCount, query, client, DBPrio_Low);
 }
 
@@ -7127,4 +7144,15 @@ public void setPlayerMapCount(Handle owner, Handle hndl, const char[] error, any
 	g_completedStages[client] = SQL_FetchInt(hndl, 0);
 	SQL_FetchRow(hndl);
 	g_completedMaps[client] = SQL_FetchInt(hndl, 0);
+}
+
+public void addExtraPoints(int client, int points) {
+	char query[512];
+	Format(query, sizeof(query), sql_addExtraPoints, points, g_szSteamID[client]);
+	if (!SQL_FastQuery(g_hDb, query))
+	{
+		char queryError[255];
+		SQL_GetError(g_hDb, queryError, sizeof(queryError));
+		PrintToServer("Failed to add extra points (error: %s)", queryError);
+	}
 }

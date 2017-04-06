@@ -2233,6 +2233,10 @@ public int Native_GetCompletedMaps(Handle plugin, int numParams) {
 	return g_completedMaps[GetNativeCell(1)];
 }
 
+public int Native_AddPoints(Handle plugin, int numParams) {
+	addExtraPoints(GetNativeCell(1), GetNativeCell(2));
+}
+
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
@@ -2251,6 +2255,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("ckSurf_GetCompletedMaps", Native_GetCompletedMaps);
 	CreateNative("ckSurf_GetCompletedStages", Native_GetCompletedStages);
 	CreateNative("ckSurf_GetCompletedBonuses", Native_GetCompletedBonuses);
+	CreateNative("ckSurf_AddPoints", Native_AddPoints);
 	g_bLateLoaded = late;
 	return APLRes_Success;
 }
