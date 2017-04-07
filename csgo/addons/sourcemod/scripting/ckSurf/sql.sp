@@ -1680,9 +1680,18 @@ public void sql_updatePlayerRankPointsCallback(Handle owner, Handle hndl, const 
 			GetClientName(data, szName, MAX_NAME_LENGTH);
 			int diff = g_pr_points[data] - g_pr_oldpoints[data];
 			
-			if (diff > 0) // if player earned points -> Announce
-				PrintToChat(data, "[%cSurf Timer%c] You earned %c%d %cpoints (%c%d %cTotal)", MOSSGREEN, WHITE, ORANGE, diff, WHITE, ORANGE, g_pr_points[data], WHITE);
+			if (diff > 0) {// if player earned points -> Announce
+				/* Start function call */
+				Call_StartForward(g_playerPointsForward);
 
+				/* Push parameters one at a time */
+				Call_PushCell(client);
+				Call_PushCell(diff);
+				/* Finish the call, get the result */
+				Call_Finish();
+
+				PrintToChat(data, "[%cSurf Timer%c] You earned %c%d %cpoints (%c%d %cTotal)", MOSSGREEN, WHITE, ORANGE, diff, WHITE, ORANGE, g_pr_points[data], WHITE);
+			}
 			g_pr_showmsg[data] = false;
 			db_CalculatePlayersCountGreater0();
 		}

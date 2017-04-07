@@ -411,6 +411,7 @@ Handle g_restartForward;
 Handle g_mapStatsForward;
 Handle g_stuckForward;
 Handle g_challengeWonForward;
+Handle g_playerPointsForward;
 
 /*----------  CVars  ----------*/
 // Zones
@@ -2107,6 +2108,7 @@ public void OnPluginStart()
 
 	// Forwards
 	g_mapStatsForward = CreateGlobalForward("ckSurf_OnMapStatsCommand", ET_Event, Param_Cell);
+	g_playerPointsForward = CreateGlobalForward("ckSurf_playerEarnedPoints", ET_Event, Param_Cell, Param_Cell);
 	g_restartForward = CreateGlobalForward("ckSurf_OnRestartCommand", ET_Event, Param_Cell);
 	g_stuckForward = CreateGlobalForward("ckSurf_OnStuckCommand", ET_Event, Param_Cell);
 	g_goBackForward = CreateGlobalForward("ckSurf_OnGoBackCommand", ET_Event, Param_Cell);
