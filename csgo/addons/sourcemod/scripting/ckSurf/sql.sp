@@ -4194,6 +4194,7 @@ public void SQL_selectMapTierCallback(Handle owner, Handle hndl, const char[] er
 				if (i == 0)
 				{
 					Format(g_sTierString[0], 512, " [%cSurf Timer%c] %cMap: %c%s %c| ", MOSSGREEN, WHITE, GREEN, LIMEGREEN, g_szMapName, GREEN);
+					g_mapTier = tier;
 					switch (tier)
 					{
 						case 1:Format(g_sTierString[0], 512, "%s%cTier %i %c| ", g_sTierString[0], GRAY, tier, GREEN);

@@ -245,7 +245,7 @@ enum RecordType
 public Plugin myinfo =
 {
 	name = "Surf Timer",
-	author = "marcowmadeira",
+	author = "",
 	description = "",
 	version = VERSION,
 	url = ""
@@ -337,6 +337,7 @@ int g_Advert; 													// Defines which advert to play
 
 /*----------  Maptier Variables  ----------*/
 char g_sTierString[MAXZONEGROUPS][512];							// The string for each zonegroup
+int g_mapTier;
 bool g_bTierEntryFound;											// Tier data found?
 bool g_bTierFound[MAXZONEGROUPS];								// Tier data found in ZGrp
 Handle AnnounceTimer[MAXPLAYERS + 1];							// Tier announce timer
