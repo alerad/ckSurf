@@ -2112,7 +2112,7 @@ public void OnPluginStart()
 	g_goBackForward = CreateGlobalForward("ckSurf_OnGoBackCommand", ET_Event, Param_Cell);
 	g_challengeWonForward = CreateGlobalForward("ckSurf_ChallengeWon", ET_Event, Param_Cell);
 	g_MapImprovedForward = CreateGlobalForward("ckSurf_OnMapImproved", ET_Event, Param_Cell);
-	g_MapFinishForward = CreateGlobalForward("ckSurf_OnMapFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell);
+	g_MapFinishForward = CreateGlobalForward("ckSurf_OnMapFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell, Param_String, Param_Cell);
 	g_BonusFinishForward = CreateGlobalForward("ckSurf_OnBonusFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell, Param_Cell);
 	g_PracticeFinishForward = CreateGlobalForward("ckSurf_OnPracticeFinished", ET_Event, Param_Cell, Param_Float, Param_String);
 	g_StageFinishedForward = CreateGlobalForward("ckSurf_OnStageFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell);
