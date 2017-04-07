@@ -1902,8 +1902,11 @@ stock void MapFinishedMsgs(int client, int rankThisRun = 0)
 		Call_PushCell(count);
 		Call_PushCell(g_bMapPBRecord[client] || g_bMapFirstRecord[client]);
 		Call_PushString(g_szMapName);
-		if (g_bTierFound[0]) //the second condition is only checked if the first passes
+		if (g_bTierFound[0]) {
 			Call_PushCell(g_mapTier);
+		} else {
+			Call_PushCell(0);
+		} 
 
 		/* Finish the call, get the result */
 		Call_Finish();
