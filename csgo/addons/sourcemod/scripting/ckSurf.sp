@@ -406,6 +406,7 @@ Handle g_BonusFinishForward;
 Handle g_PracticeFinishForward;
 Handle g_StageFinishedForward;
 Handle g_OnTimerStartedForward;
+Handle g_playerSettingsForward;
 Handle g_goBackForward;
 Handle g_restartForward;
 Handle g_mapStatsForward;
@@ -2119,6 +2120,7 @@ public void OnPluginStart()
 	g_BonusFinishForward = CreateGlobalForward("ckSurf_OnBonusFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell, Param_Cell, Param_Cell);
 	g_PracticeFinishForward = CreateGlobalForward("ckSurf_OnPracticeFinished", ET_Event, Param_Cell, Param_Float, Param_String);
 	g_StageFinishedForward = CreateGlobalForward("ckSurf_OnStageFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell);
+	g_playerSettingsForward = CreateGlobalForward("ckSurf_OnPlayerSettingsLoaded", ET_Event, Param_Cell);
 	g_OnTimerStartedForward = CreateGlobalForward("ckSurf_OnTimerStarted", ET_Event, Param_Cell, Param_Cell);
 
 	if (g_bLateLoaded)

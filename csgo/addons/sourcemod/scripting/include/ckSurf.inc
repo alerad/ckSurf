@@ -231,6 +231,13 @@ forward void ckSurf_ChallengeWon(int client);
   */
 forward void ckSurf_playerEarnedPoints(int client, int points);
 
+ /**
+  * Called when a player earns points
+  *
+  * @param client   Player index.
+  */
+forward void ckSurf_OnPlayerSettingsLoaded(int client);
+
 
 /**
  * Called when a player leaves a start zone

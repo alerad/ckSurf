@@ -6921,6 +6921,12 @@ public void sql_selectStagePlayerRecordsCallback(Handle owner, Handle hndl, cons
 		db_getChatTags(client);
 		g_bSettingsLoaded[client] = true;
 		g_bLoadingSettings[client] = false;
+
+		//Forward to tell that client finished loading it's settings
+		Call_StartForward(g_playerSettingsForward);
+		Call_PushCell(client);
+		Call_Finish();
+
 		if (GetConVarBool(g_hTeleToStartWhenSettingsLoaded))
 			Command_Restart(client, 1);
 
