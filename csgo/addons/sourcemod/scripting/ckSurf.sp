@@ -740,6 +740,7 @@ int g_LastSaveLocUsed[MAXPLAYERS+1];
 bool g_bStageTimerRunning[MAXPLAYERS + 1];
 float g_fStageStartTime[MAXPLAYERS + 1];
 float g_fStagePlayerRecord[MAXPLAYERS + 1][64];
+bool g_stageFirstRecord[MAXPLAYERS + 1];
 bool g_bLoadingStages;
 int g_StageRecords[CPLIMIT][StageRecord];
 int g_StagePlayerRank[MAXPLAYERS+1][CPLIMIT];
@@ -2114,10 +2115,10 @@ public void OnPluginStart()
 	g_goBackForward = CreateGlobalForward("ckSurf_OnGoBackCommand", ET_Event, Param_Cell);
 	g_challengeWonForward = CreateGlobalForward("ckSurf_ChallengeWon", ET_Event, Param_Cell);
 	g_MapImprovedForward = CreateGlobalForward("ckSurf_OnMapImproved", ET_Event, Param_Cell);
-	g_MapFinishForward = CreateGlobalForward("ckSurf_OnMapFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell, Param_String, Param_Cell);
-	g_BonusFinishForward = CreateGlobalForward("ckSurf_OnBonusFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell, Param_Cell);
+	g_MapFinishForward = CreateGlobalForward("ckSurf_OnMapFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell, Param_String, Param_Cell, Param_Cell);
+	g_BonusFinishForward = CreateGlobalForward("ckSurf_OnBonusFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell, Param_Cell, Param_Cell);
 	g_PracticeFinishForward = CreateGlobalForward("ckSurf_OnPracticeFinished", ET_Event, Param_Cell, Param_Float, Param_String);
-	g_StageFinishedForward = CreateGlobalForward("ckSurf_OnStageFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell);
+	g_StageFinishedForward = CreateGlobalForward("ckSurf_OnStageFinished", ET_Event, Param_Cell, Param_Float, Param_String, Param_Cell, Param_Cell, Param_Cell);
 	g_OnTimerStartedForward = CreateGlobalForward("ckSurf_OnTimerStarted", ET_Event, Param_Cell, Param_Cell);
 
 	if (g_bLateLoaded)

@@ -151,7 +151,7 @@ native void ckSurf_AddPoints(int client, int points);
  * @param client     Player index.
  * @return           Plugin_Handled; to stop the player from searching.
  */
-forward Action ckSurf_OnMapFinished(int client, float fRunTime, char RunTime[54], int rank, int total, bool improved, char mapName[128], int tier);
+forward Action ckSurf_OnMapFinished(int client, float fRunTime, char RunTime[54], int rank, int total, bool improved, char mapName[128], int tier, bool firstCompletition);
 
 /**
  * Called when a player finishes a bonus
@@ -159,7 +159,7 @@ forward Action ckSurf_OnMapFinished(int client, float fRunTime, char RunTime[54]
  * @param client     Player index.
  * @return           Plugin_Handled; to stop the player from searching.
  */
-forward Action ckSurf_OnBonusFinished(int client, float fRunTime, char sRunTime[54], int rank, int total, int bonusid, bool improved);
+forward Action ckSurf_OnBonusFinished(int client, float fRunTime, char sRunTime[54], int rank, int total, int bonusid, bool improved, bool firstCompletition);
 
 /**
  * Called when a player finishes a map in practice mode
@@ -179,7 +179,7 @@ forward Action ckSurf_OnBonusFinished(int client, float fRunTime, char sRunTime[
   * @param stage 	Stage
   * @param rank 	Rank of the run
   */
-forward void ckSurf_OnStageFinished(int client, float fRuntime, char[] sRuntime, int stage, int rank);
+forward void ckSurf_OnStageFinished(int client, float fRuntime, char[] sRuntime, int stage, int rank, bool firstCompletition);
 
  /**
   * Called when a player improoves a time on a map

@@ -1907,6 +1907,7 @@ stock void MapFinishedMsgs(int client, int rankThisRun = 0)
 		} else {
 			Call_PushCell(0);
 		} 
+		Call_PushCell(g_bMapFirstRecord[client]);
 
 		/* Finish the call, get the result */
 		Call_Finish();
@@ -2020,7 +2021,7 @@ stock void PrintChatBonus (int client, int zGroup, int rank = 0)
 	Call_PushCell(g_iBonusCount[zGroup]);
 	Call_PushCell(zGroup);
 	Call_PushCell(g_bBonusPBRecord[client] || g_bBonusFirstRecord[client]);
-
+	Call_PushCell(g_bBonusFirstRecord[client]);
 	/* Finish the call, get the result */
 	Call_Finish();
 

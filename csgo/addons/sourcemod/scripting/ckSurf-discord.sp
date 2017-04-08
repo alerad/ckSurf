@@ -59,7 +59,7 @@ public void OnMapStart() {
 	Format(g_cMapName, sizeof(g_cMapName), "%s", mapPieces[lastPiece - 1]);
 }
 
-public Action ckSurf_OnMapFinished(int client, float ftime, char stime[54], int rank, int total, bool improved) {
+public Action ckSurf_OnMapFinished(int client, float ftime, char stime[54], int rank, int total, bool improved, char mapName[128], int tier, bool firstCompletition) {
 	if (!g_cvAnnounceMap.BoolValue || !improved || rank > 1)
 		return Plugin_Continue;
 
@@ -85,7 +85,7 @@ public Action ckSurf_OnMapFinished(int client, float ftime, char stime[54], int 
 }
 
 
-public Action ckSurf_OnBonusFinished(int client, float ftime, char stime[54], int rank, int total, int bonusid, bool improved) {
+public Action ckSurf_OnBonusFinished(int client, float ftime, char stime[54], int rank, int total, int bonusid, bool improved, bool firstCompletition) {
 	if (!g_cvAnnounceBonus.BoolValue || !improved || rank > 1)
 		return Plugin_Continue;
 
@@ -115,7 +115,7 @@ public Action ckSurf_OnBonusFinished(int client, float ftime, char stime[54], in
 	return Plugin_Continue;
 }
 
-public void ckSurf_OnStageFinished(int client, float fRuntime, char[] sRuntime, int stage, int rank) {
+public void ckSurf_OnStageFinished(int client, float fRuntime, char[] sRuntime, int stage, int rank, bool firstCompletition) {
 	if (!g_cvAnnounceStage.BoolValue || rank > 1)
 		return;
 

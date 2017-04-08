@@ -765,6 +765,11 @@ public void EndStageTimer(int client)
 	else
 		Format(pbdiff_str, sizeof(pbdiff_str), "N/A");
 
+	if (g_fStagePlayerRecord[client][stage] == 0.0)
+	{  // Clients first record
+		g_stageFirstRecord[client] = true;
+	}
+	
 	// Check if the player beaten the record
 	if (g_StageRecords[stage][srRunTime] > runtime)
 	{

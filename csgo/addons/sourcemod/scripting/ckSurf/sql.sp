@@ -1685,7 +1685,7 @@ public void sql_updatePlayerRankPointsCallback(Handle owner, Handle hndl, const 
 				Call_StartForward(g_playerPointsForward);
 
 				/* Push parameters one at a time */
-				Call_PushCell(client);
+				Call_PushCell(data);
 				Call_PushCell(diff);
 				/* Finish the call, get the result */
 				Call_Finish();
@@ -7055,6 +7055,7 @@ public void SQL_updateStageRankCallback(Handle owner, Handle hndl, const char[] 
 		Call_PushString(runtime_str);
 		Call_PushCell(stage);
 		Call_PushCell(rank);
+		Call_PushCell(g_stageFirstRecord[client]);
 		Call_Finish();
 	}
 }
