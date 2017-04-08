@@ -7159,10 +7159,13 @@ public void setPlayerMapCount(Handle owner, Handle hndl, const char[] error, any
 public void addExtraPoints(int client, int points) {
 	char query[512];
 	Format(query, sizeof(query), sql_addExtraPoints, points, g_szSteamID[client]);
-	if (!SQL_FastQuery(g_hDb, query))
+	SQL_TQuery(g_hDb, addExtraPointsCallback, query, client, DBPrio_Low);
+}
+
+public void addExtraPointsCallback(Handle owner, Handle hndl, const char[] error, any client) {
+	if (hndl == null)
 	{
-		char queryError[255];
-		SQL_GetError(g_hDb, queryError, sizeof(queryError));
-		PrintToServer("Failed to add extra points (error: %s)", queryError);
+		LogError("[Surf Timer] Failed to add extra points %s", error);
+		return;
 	}
 }
