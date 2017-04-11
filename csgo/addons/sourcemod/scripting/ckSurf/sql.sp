@@ -7154,6 +7154,10 @@ public void setPlayerMapCount(Handle owner, Handle hndl, const char[] error, any
 		LogError("[Surf Timer] SQL Error (setting player map count): %s", error);
 		return;
 	}
+	if (SQL_GetRowCount(hndl) == 1){
+		//Means player hasn't obtained any times
+		return;
+	}
 	SQL_FetchRow(hndl);
 	g_completedBonuses[client] = SQL_FetchInt(hndl, 0);
 	SQL_FetchRow(hndl);
