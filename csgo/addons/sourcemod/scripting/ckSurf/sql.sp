@@ -6927,7 +6927,7 @@ public void sql_selectStagePlayerRecordsCallback(Handle owner, Handle hndl, cons
 		Call_PushCell(client);
 		Call_Finish();
 
-		if (GetConVarBool(g_hTeleToStartWhenSettingsLoaded))
+		if (GetConVarBool(g_hTeleToStartWhenSettingsLoaded) && !g_bPositionRestored[client])
 			Command_Restart(client, 1);
 
 		// Seach for next client to load
@@ -7090,6 +7090,16 @@ public void SQL_getCustomChatTags(Handle owner, Handle hndl, const char[] error,
 		SQL_FetchString(hndl, 0, g_cChatTag[client], sizeof(g_cChatTag[]));
 		SQL_FetchString(hndl, 1, g_cCustomName[client], sizeof(g_cCustomName[]));
 
+		
+		char replacedName[64];
+		strcopy(replacedName, sizeof(replacedName), g_cCustomName[client]);
+		replaceStringColors(replacedName);
+		SetClientName(client, replacedName);
+		// SimpleRegexMatch(g_cCustomName[client], "{.*}")
+	    // decl String:regex[512];
+	    // Format(regex, sizeof(regex), "{.*}", "{.*}");
+	    // ReplaceString(regex, sizeof(regex), "*", ".*");
+	    // ReplaceString(regex, sizeof(regex), "?", ".");
 		if (strlen(g_cCustomName[client]) <= 0)
 		{
 			Format(g_cCustomName[client], sizeof(g_cCustomName[]), "{teamcolor}%N", client);

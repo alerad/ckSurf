@@ -702,8 +702,8 @@ public void StartStageTimer(int client)
 			continue;
 			
 		int ObserverTarget = GetEntPropEnt(i, Prop_Send, "m_hObserverTarget");
-			if (ObserverTarget != client)
-				continue;
+		if (ObserverTarget != client)
+			continue;
 
 		PrintToChat(i, speedDiffMsg);
 	}

@@ -3531,3 +3531,18 @@ public bool CheckHideBotWeapon(int client) {
 	}
 	return false;
 }
+//Idk how to do regex replace so i'll just be a douche with myself
+public void replaceStringColors(char toBeReplaced[64]) {
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{YELLOW}", "", false);
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{green}", "", false);
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{darkred}", "", false);
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{lightred}", "", false);
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{blue}", "", false);
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{darkblue}", "", false);
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{mossgreen}", "", false);
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{purple}", "", false);
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{pink}", "", false);
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{red}", "", false);
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{orange}", "", false);
+    ReplaceString(toBeReplaced, sizeof(toBeReplaced), "{darkgray}", "", false);
+}
