@@ -23,7 +23,6 @@
 #include <dhooks>
 #include <mapchooser>
 #include <ckSurf>
-#include <setname>
 
 /*====================================
 =            Declarations            =
